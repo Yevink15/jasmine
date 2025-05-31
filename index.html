@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -115,20 +116,51 @@
     }
 
     @keyframes float {
-      0% {
-        transform: translateY(100vh) scale(1);
-        opacity: 0;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-10vh) scale(1.5);
-        opacity: 0;
-      }
+      0% { transform: translateY(100vh) scale(1); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
     }
 
-    audio {
+    audio { display: none; }
+
+    #diaryModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 999;
+      overflow: auto;
+    }
+
+    #diaryModalContent {
+      background: #fff7fa;
+      margin: 5% auto;
+      padding: 30px;
+      width: 90%;
+      max-width: 700px;
+      border-radius: 10px;
+      position: relative;
+      white-space: pre-wrap;
+    }
+
+    #diaryModal span {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+
+    .diary-btn {
+      font-size: 1.2rem;
+      padding: 12px 24px;
+      background-color: #ffc1cc;
+      border: none;
+      border-radius: 30px;
+      color: #5e2a3f;
+      cursor: pointer;
+      margin-top: 30px;
       display: none;
     }
   </style>
@@ -148,17 +180,22 @@
     <img src="poster_4.jpg" class="slide" />
   </div>
 
+  <button class="diary-btn" id="diaryBtn" onclick="document.getElementById('diaryModal').style.display='block'">✨ Read Our Last Week Together</button>
+
   <div class="note" id="note">
     <h2>Final Note</h2>
     <p>Jasmine,<br><br>
-    If you’re reading this, then I’m probably already on the plane or just about to leave. I’ve spent the last few days writing everything I’ve been feeling—about us, about the moments we’ve shared, and how much you mean to me. I’ve loved you through every quiet moment, every laugh, every drive, and every time you reached for my hand.<br><br>
-    I don’t know exactly how the next three months will feel, but I do know one thing for sure: my heart’s still with you. It’s always been with you. You’ve made me feel more whole than I thought was possible, and I’m so thankful for every second we’ve had together.<br><br>
-    No matter how far I go, I’ll always be close. I’ll always be thinking of you.<br><br>
-    And just like the song says…<br>
-    “I’m here for you still…”<br>
-    “Who’s to say that our love ain’t real?”<br><br>
+    If you’re reading this, then I’m probably already on the plane or just about to leave...
     I love you. Always.<br>
     —Yevin</p>
+  </div>
+
+  <div id="diaryModal">
+    <div id="diaryModalContent">
+      <span onclick="document.getElementById('diaryModal').style.display='none'">&times;</span>
+      <h2 style="text-align:center; color:#d64f74;">Our Last Week Together 📝</h2>
+      <p>Diary – May 26, 2025...<br> <!-- Insert full text manually here as needed --></p>
+    </div>
   </div>
 
   <audio id="bgMusic" loop>
@@ -185,6 +222,7 @@
         if (index === 1) {
           document.getElementById("note").classList.add("show");
           document.getElementById("note").style.display = "block";
+          document.getElementById("diaryBtn").style.display = "inline-block";
         }
       }, 5000);
     }
