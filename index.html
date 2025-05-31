@@ -13,6 +13,7 @@
       flex-direction: column;
       align-items: center;
       color: #5e2a3f;
+      overflow: hidden;
     }
 
     .slideshow, .note {
@@ -24,6 +25,7 @@
       max-width: 800px;
       margin-top: 30px;
       position: relative;
+      z-index: 2;
     }
 
     .slide {
@@ -53,6 +55,13 @@
       box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
       line-height: 1.6;
       font-size: 1.1rem;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      z-index: 2;
+    }
+
+    .note.show {
+      opacity: 1;
     }
 
     .note h2 {
@@ -83,6 +92,40 @@
 
     .start-btn:hover {
       transform: scale(1.05);
+    }
+
+    .hearts {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    .hearts span {
+      position: absolute;
+      display: block;
+      color: #ff85a2;
+      font-size: 1.2rem;
+      animation: float 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.5);
+        opacity: 0;
+      }
     }
 
     audio {
@@ -122,6 +165,8 @@
     <source src="sleep-well.mp3" type="audio/mpeg">
   </audio>
 
+  <div class="hearts" id="hearts"></div>
+
   <script>
     let index = 0;
     let slides = document.querySelectorAll(".slide");
@@ -129,15 +174,33 @@
     function startExperience() {
       document.getElementById("startScreen").style.display = "none";
       document.getElementById("slideshow").style.display = "block";
-      document.getElementById("note").style.display = "block";
       document.getElementById("bgMusic").play();
 
       setInterval(() => {
         slides[index].classList.remove("active");
         index = (index + 1) % slides.length;
         slides[index].classList.add("active");
+
+        if (index === 1) {
+          document.getElementById("note").classList.add("show");
+          document.getElementById("note").style.display = "block";
+        }
       }, 5000);
     }
+
+    function spawnHearts() {
+      const hearts = document.getElementById("hearts");
+      setInterval(() => {
+        const heart = document.createElement("span");
+        heart.textContent = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (Math.random() * 10 + 15) + "px";
+        hearts.appendChild(heart);
+        setTimeout(() => hearts.removeChild(heart), 6000);
+      }, 700);
+    }
+
+    spawnHearts();
   </script>
 
 </body>
