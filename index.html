@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For Jasmine 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background-color: #fdf1f6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #5e2a3f;
+    }
+
+    .slideshow {
+      width: 90%;
+      max-width: 800px;
+      height: auto;
+      margin-top: 30px;
+      position: relative;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+
+    .slide.active {
+      display: block;
+      animation: fade 2s ease-in-out;
+    }
+
+    @keyframes fade {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    .note {
+      width: 80%;
+      max-width: 800px;
+      background: #fff7fa;
+      padding: 25px;
+      border-radius: 10px;
+      margin: 40px auto;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+      line-height: 1.6;
+      font-size: 1.1rem;
+    }
+
+    .note h2 {
+      color: #d64f74;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 style="margin-top: 20px;">For Jasmine 💗</h1>
+
+  <div class="slideshow">
+    <img src="poster_1.jpg" class="slide active" />
+    <img src="poster_2.jpg" class="slide" />
+    <img src="poster_3.jpg" class="slide" />
+    <img src="poster_4.jpg" class="slide" />
+  </div>
+
+  <div class="note">
+    <h2>Final Note</h2>
+    <p>Jasmine,<br><br>
+    If you’re reading this, then I’m probably already on the plane or just about to leave. I’ve spent the last few days writing everything I’ve been feeling—about us, about the moments we’ve shared, and how much you mean to me. I’ve loved you through every quiet moment, every laugh, every drive, and every time you reached for my hand.<br><br>
+    I don’t know exactly how the next three months will feel, but I do know one thing for sure: my heart’s still with you. It’s always been with you. You’ve made me feel more whole than I thought was possible, and I’m so thankful for every second we’ve had together.<br><br>
+    No matter how far I go, I’ll always be close. I’ll always be thinking of you.<br><br>
+    And just like the song says…<br>
+    “I’m here for you still…”<br>
+    “Who’s to say that our love ain’t real?”<br><br>
+    I love you. Always.<br>
+    —Yevin</p>
+  </div>
+
+  <audio autoplay loop>
+    <source src="sleep-well.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const slides = document.querySelectorAll(".slide");
+    let index = 0;
+
+    setInterval(() => {
+      slides[index].classList.remove("active");
+      index = (index + 1) % slides.length;
+      slides[index].classList.add("active");
+    }, 5000);
+  </script>
+
+</body>
+</html>
