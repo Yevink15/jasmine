@@ -172,6 +172,7 @@
     let slides = document.querySelectorAll(".slide");
 
     function startExperience() {
+      document.body.style.overflow = 'auto';
       document.getElementById("startScreen").style.display = "none";
       document.getElementById("slideshow").style.display = "block";
       document.getElementById("bgMusic").play();
