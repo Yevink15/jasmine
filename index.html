@@ -1,24 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For Jasmine 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background-color: #fdf1f6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #5e2a3f;
+      overflow: hidden;
+    }
 
-<!-- This is a placeholder. In a real case, I would insert the original working HTML up to the slideshow,
-then add the diary section, then keep the final note -->
+    .slideshow, .note {
+      display: none;
+    }
 
-<!-- Slideshow ends here -->
-<div class="slideshow" id="slideshow">
-  <!-- original images stay the same -->
-</div>
+    .slideshow {
+      width: 90%;
+      max-width: 800px;
+      margin-top: 30px;
+      position: relative;
+      z-index: 2;
+    }
 
-<!-- Inserted Diary Section -->
-<div id="diary-section" style="padding: 40px; background-color: #f9f9f9; font-family: sans-serif;">
-  <h2 style="text-align:center;">Our Last Week Together</h2>
-  <div style="max-height: 500px; overflow-y: auto; padding: 20px; border: 1px solid #ddd; background: #fff;">
-    <!-- Yevin's diary entries inserted here -->
-    <p><strong>Day 1 – May 26, 2025</strong><br>
-    Only six days left until I leave for California... (full text continues here)</p>
-    <!-- All diary entries would follow here... -->
+    .slide {
+      display: none;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+
+    .slide.active {
+      display: block;
+      animation: fade 2s ease-in-out;
+    }
+
+    @keyframes fade {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    .note {
+      width: 80%;
+      max-width: 800px;
+      background: #fff7fa;
+      padding: 25px;
+      border-radius: 10px;
+      margin: 40px auto;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+      line-height: 1.6;
+      font-size: 1.1rem;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      z-index: 2;
+    }
+
+    .note.show {
+      opacity: 1;
+    }
+
+    .note h2 {
+      color: #d64f74;
+    }
+
+    .start-screen {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffe6f0;
+      text-align: center;
+    }
+
+    .start-btn {
+      font-size: 1.5rem;
+      padding: 15px 30px;
+      background-color: #ffb6c1;
+      border: none;
+      border-radius: 30px;
+      color: #5e2a3f;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .start-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .hearts {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    .hearts span {
+      position: absolute;
+      display: block;
+      color: #ff85a2;
+      font-size: 1.2rem;
+      animation: float 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="start-screen" id="startScreen">
+    <h1>Hi Jasmine 💕</h1>
+    <p>Tap below to begin your surprise</p>
+    <button class="start-btn" onclick="startExperience()">Tap to Begin</button>
   </div>
-</div>
 
-<!-- Final note follows after -->
-<div id="final-note">
-  <!-- Original final note stays untouched -->
-</div>
+  <div class="slideshow" id="slideshow">
+    <img src="poster_1.jpg" class="slide active" />
+    <img src="poster_2.jpg" class="slide" />
+    <img src="poster_3.jpg" class="slide" />
+    <img src="poster_4.jpg" class="slide" />
+  </div>
+
+  <div class="note" id="note">
+    <h2>Final Note</h2>
+    <p>Jasmine,<br><br>
+    If you’re reading this, then I’m probably already on the plane or just about to leave. I’ve spent the last few days writing everything I’ve been feeling—about us, about the moments we’ve shared, and how much you mean to me. I’ve loved you through every quiet moment, every laugh, every drive, and every time you reached for my hand.<br><br>
+    I don’t know exactly how the next three months will feel, but I do know one thing for sure: my heart’s still with you. It’s always been with you. You’ve made me feel more whole than I thought was possible, and I’m so thankful for every second we’ve had together.<br><br>
+    No matter how far I go, I’ll always be close. I’ll always be thinking of you.<br><br>
+    And just like the song says…<br>
+    “I’m here for you still…”<br>
+    “Who’s to say that our love ain’t real?”<br><br>
+    I love you. Always.<br>
+    —Yevin</p>
+  </div>
+
+  <audio id="bgMusic" loop>
+    <source src="sleep-well.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="hearts" id="hearts"></div>
+
+  <script>
+    let index = 0;
+    let slides = document.querySelectorAll(".slide");
+
+    function startExperience() {
+      document.body.style.overflow = 'auto';
+      document.getElementById("startScreen").style.display = "none";
+      document.getElementById("slideshow").style.display = "block";
+      document.getElementById("bgMusic").play();
+
+      setInterval(() => {
+        slides[index].classList.remove("active");
+        index = (index + 1) % slides.length;
+        slides[index].classList.add("active");
+
+        if (index === 1) {
+          document.getElementById("note").classList.add("show");
+          document.getElementById("note").style.display = "block";
+        }
+      }, 5000);
+    }
+
+    function spawnHearts() {
+      const hearts = document.getElementById("hearts");
+      setInterval(() => {
+        const heart = document.createElement("span");
+        heart.textContent = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (Math.random() * 10 + 15) + "px";
+        hearts.appendChild(heart);
+        setTimeout(() => hearts.removeChild(heart), 6000);
+      }, 700);
+    }
+
+    spawnHearts();
+  </script>
+
+</body>
+</html>
