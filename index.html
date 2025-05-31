@@ -15,10 +15,13 @@
       color: #5e2a3f;
     }
 
+    .slideshow, .note {
+      display: none;
+    }
+
     .slideshow {
       width: 90%;
       max-width: 800px;
-      height: auto;
       margin-top: 30px;
       position: relative;
     }
@@ -56,6 +59,32 @@
       color: #d64f74;
     }
 
+    .start-screen {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffe6f0;
+      text-align: center;
+    }
+
+    .start-btn {
+      font-size: 1.5rem;
+      padding: 15px 30px;
+      background-color: #ffb6c1;
+      border: none;
+      border-radius: 30px;
+      color: #5e2a3f;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .start-btn:hover {
+      transform: scale(1.05);
+    }
+
     audio {
       display: none;
     }
@@ -63,16 +92,20 @@
 </head>
 <body>
 
-  <h1 style="margin-top: 20px;">For Jasmine 💗</h1>
+  <div class="start-screen" id="startScreen">
+    <h1>Hi Jasmine 💕</h1>
+    <p>Tap below to begin your surprise</p>
+    <button class="start-btn" onclick="startExperience()">Tap to Begin</button>
+  </div>
 
-  <div class="slideshow">
+  <div class="slideshow" id="slideshow">
     <img src="poster_1.jpg" class="slide active" />
     <img src="poster_2.jpg" class="slide" />
     <img src="poster_3.jpg" class="slide" />
     <img src="poster_4.jpg" class="slide" />
   </div>
 
-  <div class="note">
+  <div class="note" id="note">
     <h2>Final Note</h2>
     <p>Jasmine,<br><br>
     If you’re reading this, then I’m probably already on the plane or just about to leave. I’ve spent the last few days writing everything I’ve been feeling—about us, about the moments we’ve shared, and how much you mean to me. I’ve loved you through every quiet moment, every laugh, every drive, and every time you reached for my hand.<br><br>
@@ -85,19 +118,26 @@
     —Yevin</p>
   </div>
 
-  <audio autoplay loop>
+  <audio id="bgMusic" loop>
     <source src="sleep-well.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    const slides = document.querySelectorAll(".slide");
     let index = 0;
+    let slides = document.querySelectorAll(".slide");
 
-    setInterval(() => {
-      slides[index].classList.remove("active");
-      index = (index + 1) % slides.length;
-      slides[index].classList.add("active");
-    }, 5000);
+    function startExperience() {
+      document.getElementById("startScreen").style.display = "none";
+      document.getElementById("slideshow").style.display = "block";
+      document.getElementById("note").style.display = "block";
+      document.getElementById("bgMusic").play();
+
+      setInterval(() => {
+        slides[index].classList.remove("active");
+        index = (index + 1) % slides.length;
+        slides[index].classList.add("active");
+      }, 5000);
+    }
   </script>
 
 </body>
