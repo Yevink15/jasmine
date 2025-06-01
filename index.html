@@ -1,5 +1,4 @@
-
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -16,61 +15,9 @@
       color: #5e2a3f;
       overflow: hidden;
     }
-
-    .slideshow, .note {
-      display: none;
-    }
-
-    .slideshow {
-      width: 90%;
-      max-width: 800px;
-      margin-top: 30px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .slide {
-      display: none;
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    }
-
-    .slide.active {
-      display: block;
-      animation: fade 2s ease-in-out;
-    }
-
-    @keyframes fade {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-
-    .note {
-      width: 80%;
-      max-width: 800px;
-      background: #fff7fa;
-      padding: 25px;
-      border-radius: 10px;
-      margin: 40px auto;
-      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-      line-height: 1.6;
-      font-size: 1.1rem;
-      opacity: 0;
-      transition: opacity 2s ease-in-out;
-      z-index: 2;
-    }
-
-    .note.show {
-      opacity: 1;
-    }
-
-    .note h2 {
-      color: #d64f74;
-    }
-
     .start-screen {
       height: 100vh;
+      width: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -78,7 +25,6 @@
       background-color: #ffe6f0;
       text-align: center;
     }
-
     .start-btn {
       font-size: 1.5rem;
       padding: 15px 30px;
@@ -90,11 +36,61 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       transition: transform 0.2s ease;
     }
-
     .start-btn:hover {
       transform: scale(1.05);
     }
-
+    .slideshow {
+      display: none;
+      width: 90%;
+      max-width: 800px;
+      margin-top: 30px;
+    }
+    .slide {
+      display: none;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+    .slide.active {
+      display: block;
+      animation: fade 2s ease-in-out;
+    }
+    @keyframes fade {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    .note {
+      display: none;
+      width: 80%;
+      max-width: 800px;
+      background: #fff7fa;
+      padding: 25px;
+      border-radius: 10px;
+      margin: 40px auto;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+      line-height: 1.6;
+      font-size: 1.1rem;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+    }
+    .note.show {
+      display: block;
+      opacity: 1;
+    }
+    .note h2 {
+      color: #d64f74;
+    }
+    .diary-btn {
+      display: none;
+      font-size: 1.2rem;
+      padding: 12px 24px;
+      background-color: #ffc1cc;
+      border: none;
+      border-radius: 30px;
+      color: #5e2a3f;
+      cursor: pointer;
+      margin-top: 30px;
+    }
     .hearts {
       position: fixed;
       width: 100%;
@@ -105,7 +101,6 @@
       left: 0;
       pointer-events: none;
     }
-
     .hearts span {
       position: absolute;
       display: block;
@@ -114,15 +109,11 @@
       animation: float 6s linear infinite;
       opacity: 0.7;
     }
-
     @keyframes float {
       0% { transform: translateY(100vh) scale(1); opacity: 0; }
       50% { opacity: 1; }
       100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
     }
-
-    audio { display: none; }
-
     #diaryModal {
       display: none;
       position: fixed;
@@ -132,7 +123,6 @@
       z-index: 999;
       overflow: auto;
     }
-
     #diaryModalContent {
       background: #fff7fa;
       margin: 5% auto;
@@ -142,26 +132,14 @@
       border-radius: 10px;
       position: relative;
       white-space: pre-wrap;
+      line-height: 1.6;
     }
-
     #diaryModal span {
       position: absolute;
       top: 10px;
       right: 20px;
       cursor: pointer;
       font-size: 1.5rem;
-    }
-
-    .diary-btn {
-      font-size: 1.2rem;
-      padding: 12px 24px;
-      background-color: #ffc1cc;
-      border: none;
-      border-radius: 30px;
-      color: #5e2a3f;
-      cursor: pointer;
-      margin-top: 30px;
-      display: none;
     }
   </style>
 </head>
@@ -170,7 +148,7 @@
   <div class="start-screen" id="startScreen">
     <h1>Hi Jasmine 💕</h1>
     <p>Tap below to begin your surprise</p>
-    <button class="start-btn" onclick="startExperience()">Tap to Begin</button>
+    <button class="start-btn" id="startBtn">Tap to Begin</button>
   </div>
 
   <div class="slideshow" id="slideshow">
@@ -180,10 +158,9 @@
     <img src="poster_4.jpg" class="slide" />
   </div>
 
-  <button class="diary-btn" id="diaryBtn" onclick="document.getElementById('diaryModal').style.display='block'">✨ Read Our Last Week Together</button>
+  <button class="diary-btn" id="diaryBtn">✨ Read Our Last Week Together</button>
 
   <div class="note" id="note">
-    <h2>Final Note</h2>
 
 <p>Jasmine,</p>
 
@@ -200,17 +177,15 @@
 <p>I love you. Always.<br>
 —Yevin ❤️
 </p>
-
   </div>
 
   <div id="diaryModal">
     <div id="diaryModalContent">
-      <span onclick="document.getElementById('diaryModal').style.display='none'">&times;</span>
+      <span id="closeDiary">&times;</span>
       <h2 style="text-align:center; color:#d64f74;">Our Last Week Together 📝</h2>
-      <p>
-Last week before my internship
-
-Day 1 – May 26, 2025
+      <p id="pageIndicator" style="text-align:center; font-style:italic; margin-bottom:20px;">Day 1 of 6</p>
+      <div id="diaryPages">
+        <div class="diaryPage" style="display:block;">Day 1 – May 26, 2025
 
 Only six days left until I leave for California for my 12-week internship. I leave on Sunday, and the countdown is starting to feel real. I know it won’t fully sink in until I’m packing the night before or sitting on that plane. I’m trying to spend as much time as I can with Jasmine before I go. I know I’ll miss my family, but most of all, I’ll miss her.
 
@@ -234,11 +209,8 @@ Still, I know time’s running out. I don’t know how I’m going to handle lea
 
 For now, I’ll take it one day at a time. That’s all I can do.
 
-- Yevin ❤️
-
-
-Day 2 – 05/28/2025
-
+- Yevin ❤️️</div>
+        <div class="diaryPage" style="display:none;">Day 2 – May 28, 2025
 Today was light. We didn’t do that much, but it still felt amazing because I got to spend time with Jasmine.
 
 We both had work this morning. She also had a math class. Work wasn’t too bad for either of us. She left early because she was bored, and I left around the same time to go pick her up. She had a meeting at 2:30 PM with someone from PwC. I made sure to time it so that by the time I got there, she’d be just finishing up. I really hope she did well. I know how much getting that internship or job means to her. I can see how badly she wants it, and I know she deserves it.
@@ -255,10 +227,8 @@ We’re both trying not to think too much about the goodbye coming on Saturday. 
 
 That’s it for today, we’ll see how tomorrow goes.
 
-- Yevin ❤️
-
-Day 3 – 05/28/2025
-
+- Yevin ❤️</div>
+        <div class="diaryPage" style="display:none;">Day 3 – May 28, 2025
 Today was T-minus 3 days until I basically leave. We were originally going to go to Georgetown, but because it was raining a lot, we decided to go to Tysons instead.
 
 Jasmine had work today and I didn’t. She went in late because she was tired, and honestly, I slept a decent amount too since I had the day off. There was just something about the weather, probably the rain, that made both of us feel so tired.
@@ -285,10 +255,8 @@ Driving her home was the saddest part, and what made it worse is that I might no
 
 After I dropped her off, I sat in the car for a few minutes and just thought about everything. I already missed her. It’s hard not to think about how little time we have left together before I leave. But I know I’ll see her again soon. I’m holding on to that. Even if it’s just for a few more days, I’m going to make every moment count.
 
-- Yevin ❤️
-
-Day 4 – May 29, 2025
-
+- Yevin ❤️️</div>
+        <div class="diaryPage" style="display:none;">Day 4 – May 29, 2025
 Today was honestly kinda slow, but Jasmine made it feel less empty. I texted her in the morning just to make sure she was good reminding her to drive safe, let me know when she got to work, stuff like that. She forgot to text me at first, but I didn’t mind. She had class, and I get it. I just always wanna make sure she’s okay.
 
 Her day sounded boring and slow, and she forgot her mouse at home 😭. I offered to pick her up from Tysons if she ended up going, but that whole thing kinda flopped. Kevin bailed, so there wasn’t really anything left for me to do today. I told her to use my card if she wanted something, and of course she refused at first, but I just wanted her to know I got her no matter what.
@@ -301,18 +269,16 @@ Now we’ve only got 2 days left together before I leave for California. I’m r
 
 I’m gonna miss her so much.
 
-— Yevin ❤️
-
-Day 5 – May 30, 2025
-
+— Yevin ❤️️</div>
+        <div class="diaryPage" style="display:none;">Day 5 – May 30, 2025
 Today felt a little heavier. Woke up with only two days left, and it’s been creeping into everything I do. Jasmine was at work and tired, and I could tell she felt bad about not being able to hang out. We were planning to meet, maybe around 5–6, but the weather and her mom not letting her leave because of a tornado warning kind of ruined it. I didn’t want her to feel bad so I ran her errands, picked up the matcha lemonade and Dubai chocolate from Trader Joe’s, and even helped her figure out her mouse situation from miles away like her tech support hero lol.
 
 Even though we didn’t get to meet, I still felt close to her. We texted throughout, joked about Micro Center being the Sephora for tech, and she promised to wake up early tomorrow so we could have more time. I told her it wasn’t fun getting pho today because she wasn’t there. She said she missed me too.
 
 There’s something about how she said, “I’m very excited to see you tomorrow” that hit me. We only have one full day left now. I’m really hoping we can do something special tomorrow just something small but meaningful. I want to make a memory that lasts, one of those meteorites we always talk about something we can both carry with us until she comes to California.
 
--Yevin 
-
+-Yevin ❤️️</div>
+        <div class="diaryPage" style="display:none;">Day 6 – May 31, 2025
 Today was the last day before I leave - May 31, 2025
 
 I leave tomorrow at 5 a.m., so I only have about five hours left as I’m writing this. I left around 3 p.m. to go pick up Jasmine and got to her house around 3:30. From there, we headed to the Labubu store. But once we got there, we both noticed a line outside the shop. Jasmine didn’t want to wait, and it started raining, so we left and headed to Tysons instead.
@@ -348,8 +314,12 @@ We’ll see each other soon.
 Until then…
 
 With love,
-Yevin ❤️
-</p>
+Yevin ❤️</div>
+      </div>
+      <div style="text-align:center; margin-top:20px;">
+        <button id="prevBtn" style="padding:8px 12px; margin-right:10px;">← Prev</button>
+        <button id="nextBtn" style="padding:8px 12px;">Next →</button>
+      </div>
     </div>
   </div>
 
@@ -360,28 +330,28 @@ Yevin ❤️
   <div class="hearts" id="hearts"></div>
 
   <script>
-    let index = 0;
-    let slides = document.querySelectorAll(".slide");
-
-    function startExperience() {
-      document.body.style.overflow = 'auto';
+    // Start Experience
+    const startBtn = document.getElementById("startBtn");
+    startBtn.addEventListener("click", () => {
       document.getElementById("startScreen").style.display = "none";
       document.getElementById("slideshow").style.display = "block";
       document.getElementById("bgMusic").play();
 
+      // rotate slides every 5s, show note on slide 2
+      let index = 0;
+      const slides = document.querySelectorAll(".slide");
       setInterval(() => {
         slides[index].classList.remove("active");
         index = (index + 1) % slides.length;
         slides[index].classList.add("active");
-
         if (index === 1) {
           document.getElementById("note").classList.add("show");
-          document.getElementById("note").style.display = "block";
           document.getElementById("diaryBtn").style.display = "inline-block";
         }
       }, 5000);
-    }
+    });
 
+    // Floating Hearts
     function spawnHearts() {
       const hearts = document.getElementById("hearts");
       setInterval(() => {
@@ -393,8 +363,70 @@ Yevin ❤️
         setTimeout(() => hearts.removeChild(heart), 6000);
       }, 700);
     }
-
     spawnHearts();
+
+    // Diary Navigation
+    let currentPage = 0;
+    const pages = document.querySelectorAll(".diaryPage");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function showPage(index) {
+      pages.forEach((p, i) => p.style.display = i === index ? "block" : "none");
+      document.getElementById("pageIndicator").textContent = `Day ${index + 1} of ${pages.length}`;
+      prevBtn.style.visibility = index === 0 ? "hidden" : "visible";
+
+      if (index === pages.length - 1) {
+        nextBtn.textContent = "← Return to Final Note";
+        nextBtn.onclick = () => {
+          document.getElementById("diaryModal").style.display = "none";
+          document.getElementById("note").scrollIntoView({ behavior: "smooth" });
+        };
+      } else {
+        nextBtn.textContent = "Next →";
+        nextBtn.onclick = nextPage;
+      }
+    }
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        currentPage++;
+        showPage(currentPage);
+      }
+    }
+    function prevPage() {
+      if (currentPage > 0) {
+        currentPage--;
+        showPage(currentPage);
+      }
+    }
+
+    prevBtn.addEventListener("click", prevPage);
+
+    // Open/Close Diary
+    function openDiary() {
+      currentPage = 0;
+      showPage(0);
+      document.getElementById("diaryModal").style.display = "block";
+    }
+    document.getElementById("diaryBtn").addEventListener("click", openDiary);
+
+    function closeDiary() {
+      document.getElementById("diaryModal").style.display = "none";
+    }
+    document.getElementById("closeDiary").addEventListener("click", closeDiary);
+
+    function closeDiaryModal(e) {
+      if (e.target.id === "diaryModal") {
+        closeDiary();
+      }
+    }
+    document.getElementById("diaryModal").addEventListener("click", closeDiaryModal);
+
+    // Hide Prev on load
+    document.addEventListener("DOMContentLoaded", () => {
+      prevBtn.style.visibility = "hidden";
+    });
   </script>
 
 </body>
