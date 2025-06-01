@@ -131,7 +131,7 @@
       max-width: 700px;
       border-radius: 10px;
       position: relative;
-      white-space: pre-wrap;
+      white-space: pre-line;
       line-height: 1.6;
     }
     #diaryModal span {
@@ -141,6 +141,25 @@
       cursor: pointer;
       font-size: 1.5rem;
     }
+     /* … your existing CSS … */
+
+    /* Remove extra bottom‐space inside each diaryPage */
+    .diaryPage {
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    /* Pull Prev/Next buttons closer to the text */
+    #diaryModalContent > div:last-child {
+      margin-top: 4px;
+    }
+
+    /* Pull the “Day X of Y” indicator closer to entry */
+    #pageIndicator {
+      margin-bottom: 4px;
+    }
+
+    /* … any other CSS you had … */
   </style>
 </head>
 <body>
@@ -164,7 +183,7 @@
 
 <p>Jasmine,</p>
 
-<p>If you’re reading this, then I’m probably already on the plane or just about to leave. I’ve spent the last few days writing everything I’ve been feeling—about us, about the moments we’ve shared, and how much you mean to me. I’ve loved you through every quiet moment, every laugh, every drive, and every time you reached for my hand.</p>
+<p>If you’re reading this, then I’m probably already on the plane or just about to leave. I’ve spent the last few days writing everything I’ve been feeling about us, about the moments we’ve shared, and how much you mean to me. I’ve loved you through every quiet moment, every laugh, every drive, and every time you reached for my hand.</p>
 
 <p>I don’t know exactly how the next three months will feel, but I do know one thing for sure: my heart’s still with you. It’s always been with you. You’ve made me feel more whole than I thought was possible, and I’m so thankful for every second we’ve had together.</p>
 
